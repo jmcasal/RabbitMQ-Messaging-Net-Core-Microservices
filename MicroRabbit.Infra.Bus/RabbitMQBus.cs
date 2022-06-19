@@ -21,7 +21,7 @@ namespace MicroRabbit.Infra.Bus
     {
         private readonly IMediator _mediator;
 
-        private readonly IDictionary<string, HashSet<Type>> _handlers;
+        private readonly Dictionary<string, HashSet<Type>> _handlers;
 
         private readonly HashSet<Type> _eventTypes;
 
@@ -115,7 +115,7 @@ namespace MicroRabbit.Infra.Bus
         private async Task Consumer_Received(object sender, BasicDeliverEventArgs @event)
         {
             var eventName = @event.RoutingKey;
-            var message = Encoding.UTF8.GetString(@event.Body);
+            var message = Encoding.UTF8.GetString(@event.Body.ToArray());
 
             try
             {
@@ -148,8 +148,10 @@ namespace MicroRabbit.Infra.Bus
                     var concreteType = typeof(IEventHandler<>).MakeGenericType(eventType);
 
                     await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { @event });
-                    
+
 
                 }
+            }
         }
     }
+}
