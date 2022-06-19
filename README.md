@@ -2,6 +2,11 @@
 
 Example of RabbiotMQ based on udemy course Get Started with .NET Core Microservices using RabbitMQ! in https://www.udemy.com/course/getting-started-net-core-microservices-rabbitmq 
 
+The target framework of this course is .Net 6.0
+
+This Source Code is based on the original source code of the course
+
+Original Source Code: https://github.com/innovativeinstitution/MicroRabbit
 
 ## Use of RabbitMQ in docker
 
@@ -25,3 +30,4 @@ Make sure you stop the other container images before starting this one.
 more info: 
 + https://www.rabbitmq.com/download.html
 + https://stackoverflow.com/questions/47290108/how-to-open-rabbitmq-in-browser-using-docker-container
+
