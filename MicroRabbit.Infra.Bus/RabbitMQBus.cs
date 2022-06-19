@@ -147,7 +147,9 @@ namespace MicroRabbit.Infra.Bus
 
                     var concreteType = typeof(IEventHandler<>).MakeGenericType(eventType);
 
-                    await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { @event });
+                    var mi = concreteType.GetMethod("Handle");
+                    
+                    await (Task)mi.Invoke(handler, new object[] { @event });
 
 
                 }

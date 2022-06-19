@@ -7,14 +7,11 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+
 DependencyContainer.Register(builder.Services);
-
-
-
 ConfigureServices(builder);
 
 var app = builder.Build();
@@ -30,6 +27,11 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseSwagger();
+
+app.UseSwaggerUI( c => {
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Banking Microservice V1");
+});
 
 app.UseStaticFiles();
 
@@ -40,19 +42,6 @@ app.UseAuthorization();
 
 
 app.MapRazorPages();
-
-app.UseSwagger();
-
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Banking Microservice V1");
-});
-
-// ---------------------------------------------------------------------------------------------------------------------------
-// https://stackoverflow.com/questions/56781385/no-operations-defined-in-spec-i-get-this-error-even-though-the-swagger-is-set
-// ---------------------------------------------------------------------------------------------------------------------------
-app.MapControllers(); 
-
 
 app.Run();
 
@@ -66,16 +55,13 @@ void ConfigureServices(WebApplicationBuilder builder)
         options.UseSqlServer(configuration.GetConnectionString("BankingDbConnection"));
     });
 
-    services.AddEndpointsApiExplorer();
-
     services.AddSwaggerGen(c =>
     {
         c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Banking Microservice", Version = "v1" });
     });
 
-
     services.AddMediatR(typeof(Program));
 
-    services.AddControllers(); 
+
 
 }
