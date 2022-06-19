@@ -2,7 +2,7 @@
 
 Example of RabbiotMQ based on udemy course Get Started with .NET Core Microservices using RabbitMQ! in https://www.udemy.com/course/getting-started-net-core-microservices-rabbitmq 
 
-The target framework of this course is .Net 6.0
+The target framework of this source code is .Net 6.0
 
 This Source Code is based on the original source code of the course
 
